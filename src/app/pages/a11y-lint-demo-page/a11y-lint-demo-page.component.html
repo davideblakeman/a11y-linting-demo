@@ -1,0 +1,179 @@
+<!--
+  axe Accessibility Linter demo page.
+  Open this file in VS Code: each "Fails" block is intentionally broken and should
+  be underlined by the linter; each "Passes" block shows the fix.
+-->
+<div class="demo-page">
+  <h2>Accessibility linter demo</h2>
+  <p>
+    Each example pairs code that fails an axe rule with the corrected version. Errors are WCAG 2.2 AA failures; warnings
+    are best-practice issues.
+  </p>
+
+  <!-- 1. image-alt (error, WCAG 1.1.1) -->
+  <section class="demo-example" aria-labelledby="demo-image-alt">
+    <h3 id="demo-image-alt">1. Images need alternative text (image-alt)</h3>
+    <div class="demo-pair">
+      <div class="demo-fail">
+        <p>Fails</p>
+        <img class="demo-image" src="assets/img/i2n-logo.png" />
+      </div>
+      <div class="demo-pass">
+        <p>Passes</p>
+        <img class="demo-image" src="assets/img/i2n-logo.png" alt="i2N logo" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. button-name (error, WCAG 4.1.2) -->
+  <section class="demo-example" aria-labelledby="demo-button-name">
+    <h3 id="demo-button-name">2. Icon-only buttons need an accessible name (button-name)</h3>
+    <div class="demo-pair">
+      <div class="demo-fail">
+        <p>Fails</p>
+        <button type="button">
+          <span class="material-icons" aria-hidden="true">delete</span>
+        </button>
+      </div>
+      <div class="demo-pass">
+        <p>Passes</p>
+        <button type="button" aria-label="Delete record">
+          <span class="material-icons" aria-hidden="true">delete</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. aria-input-field-name (error, WCAG 4.1.2) -->
+  <section class="demo-example" aria-labelledby="demo-label">
+    <h3 id="demo-label">3. Custom ARIA inputs need a label (aria-input-field-name)</h3>
+    <div class="demo-pair">
+      <div class="demo-fail">
+        <p>Fails</p>
+        <div role="textbox" tabindex="0">Smith</div>
+      </div>
+      <div class="demo-pass">
+        <p>Passes</p>
+        <div role="textbox" tabindex="0" aria-label="Surname">Smith</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. link-name (error, WCAG 2.4.4 / 4.1.2) -->
+  <section class="demo-example" aria-labelledby="demo-link-name">
+    <h3 id="demo-link-name">4. Links need discernible text (link-name)</h3>
+    <div class="demo-pair">
+      <div class="demo-fail">
+        <p>Fails</p>
+        <a href="/dashboard">
+          <span class="material-icons" aria-hidden="true">home</span>
+        </a>
+      </div>
+      <div class="demo-pass">
+        <p>Passes</p>
+        <a href="/dashboard">
+          <span class="material-icons" aria-hidden="true">home</span>
+          Dashboard
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. aria-valid-attr-value (error, WCAG 4.1.2) -->
+  <section class="demo-example" aria-labelledby="demo-aria-value">
+    <h3 id="demo-aria-value">5. ARIA attributes need valid values (aria-valid-attr-value)</h3>
+    <div class="demo-pair">
+      <div class="demo-fail">
+        <p>Fails</p>
+        <button type="button" aria-expanded="yes">Show details</button>
+      </div>
+      <div class="demo-pass">
+        <p>Passes</p>
+        <button type="button" aria-expanded="false">Show details</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. tabindex (warning, best-practice) -->
+  <section class="demo-example" aria-labelledby="demo-tabindex">
+    <h3 id="demo-tabindex">6. Avoid positive tabindex values (tabindex - warning)</h3>
+    <div class="demo-pair">
+      <div class="demo-fail">
+        <p>Warns</p>
+        <button type="button" tabindex="1">Save</button>
+      </div>
+      <div class="demo-pass">
+        <p>Passes</p>
+        <button type="button">Save</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Custom component mapped in axe-linter.yml (global-components) -->
+  <section class="demo-example" aria-labelledby="demo-custom">
+    <h3 id="demo-custom">7. Custom components are linted via global-components</h3>
+    <p>phoenix-icon-button is mapped to button in axe-linter.yml, so the button-name rule applies to it.</p>
+    <div class="demo-pair">
+      <div class="demo-fail">
+        <p>Fails</p>
+        <phoenix-icon-button icon="attachment"></phoenix-icon-button>
+      </div>
+      <div class="demo-pass">
+        <p>Passes</p>
+        <phoenix-icon-button icon="attachment">Attach document</phoenix-icon-button>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Inline suppression directives -->
+  <section class="demo-example" aria-labelledby="demo-suppress">
+    <h3 id="demo-suppress">8. Suppressing a known, justified violation</h3>
+    <p>Use sparingly and always give a reason. Prefer fixing the markup.</p>
+    <div class="demo-pair">
+      <div class="demo-pass">
+        <p>Suppressed</p>
+        <!-- Reason: alt text is set at runtime by the parent component. -->
+        <!-- axe-linter-disable-next-line image-alt -->
+        <img class="demo-image" src="assets/img/blank-photo.png" />
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Style rules - see a11y-lint-demo-page.component.scss (Stylelint) -->
+  <section class="demo-example" aria-labelledby="demo-styles">
+    <h3 id="demo-styles">9. Style rules (Stylelint a11y plugin)</h3>
+    <p>
+      axe does not read SCSS. These examples are flagged by Stylelint in the component's .scss file. Tab through the
+      buttons to compare keyboard behaviour.
+    </p>
+    <div class="demo-pair">
+      <div class="demo-fail">
+        <p>Fails</p>
+        <p><button type="button" class="demo-focus-fail">S1 Focus outline removed</button></p>
+        <p><button type="button" class="demo-hover-fail">S2 Hover style only</button></p>
+        <p><button type="button" class="demo-motion-fail">S3 Ignores reduced motion</button></p>
+        <p class="demo-text-small-fail">S4 Text set at 11px is hard to read.</p>
+        <p class="demo-justify-fail">
+          S5 Justified text creates uneven gaps between words, which makes longer passages harder to read for people
+          with dyslexia.
+        </p>
+      </div>
+      <div class="demo-pass">
+        <p>Passes</p>
+        <p><button type="button" class="demo-focus-pass">S1 Visible focus outline</button></p>
+        <p><button type="button" class="demo-hover-pass">S2 Hover and focus styles</button></p>
+        <p><button type="button" class="demo-motion-pass">S3 Respects reduced motion</button></p>
+        <p class="demo-text-small-pass">S4 Text set at 1rem is readable.</p>
+        <p class="demo-justify-pass">
+          S5 Left-aligned text keeps even gaps between words, which makes longer passages easier to read.
+        </p>
+        <div class="demo-suppressed-wrapper">
+          <button type="button" class="demo-suppressed">S6 Suppressed (parent shows focus)</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10. Template rules - see components/a11y-eslint-demo/a11y-eslint-demo.component.ts (Angular ESLint) -->
+  <phoenix-a11y-eslint-demo></phoenix-a11y-eslint-demo>
+</div>

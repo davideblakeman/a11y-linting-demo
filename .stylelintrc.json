@@ -1,0 +1,13 @@
+{
+  "customSyntax": "postcss-scss",
+  "plugins": ["@double-great/stylelint-a11y"],
+  "ignoreFiles": ["node_modules/**", "dist/**", ".angular/**"],
+  "rules": {
+    "a11y/no-outline-none": true,
+    "a11y/selector-pseudo-class-focus": true,
+    "a11y/media-prefers-reduced-motion": [true, { "severity": "warning" }],
+    "a11y/font-size-is-readable": [true, { "severity": "warning" }],
+    "a11y/no-text-align-justify": [true, { "severity": "warning" }],
+    "a11y/content-property-no-static-value": [true, { "severity": "warning" }]
+  }
+}

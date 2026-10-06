@@ -1,0 +1,115 @@
+.demo-page {
+  padding: 16px;
+  max-width: 960px;
+}
+
+.demo-example {
+  margin-bottom: 24px;
+  padding: 16px;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+}
+
+.demo-pair {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.demo-fail,
+.demo-pass {
+  flex: 1 1 280px;
+  padding: 12px;
+  border-left: 4px solid;
+}
+
+.demo-fail {
+  border-left-color: var(--color-fail);
+}
+
+.demo-pass {
+  border-left-color: var(--color-pass);
+}
+
+.demo-image {
+  width: 120px;
+  height: auto;
+}
+
+// ---------------------------------------------------------------------------
+// Stylelint a11y demo (.stylelintrc.json). Each "fail" rule is intentionally
+// broken and should be underlined; the "pass" rule beside it shows the fix.
+// ---------------------------------------------------------------------------
+
+// S1. a11y/no-outline-none (error, WCAG 2.4.7 Focus Visible)
+.demo-focus-fail:focus {
+  outline: none;
+}
+
+.demo-focus-pass:focus {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+// S2. a11y/selector-pseudo-class-focus (error, WCAG 2.1.1 Keyboard)
+.demo-hover-fail:hover {
+  background-color: var(--color-accent-bg);
+  color: var(--color-accent-text);
+}
+
+.demo-hover-pass:hover,
+.demo-hover-pass:focus {
+  background-color: var(--color-accent-bg);
+  color: var(--color-accent-text);
+}
+
+// S3. a11y/media-prefers-reduced-motion (warning, WCAG 2.3.3)
+// The @media selector must match the animated selector exactly.
+.demo-motion-fail {
+  transition: transform 0.3s ease-in-out;
+}
+
+.demo-motion-pass {
+  transition: transform 0.3s ease-in-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-motion-pass {
+    transition: none;
+  }
+}
+
+.demo-motion-fail:hover,
+.demo-motion-fail:focus,
+.demo-motion-pass:hover,
+.demo-motion-pass:focus {
+  transform: scale(1.1);
+}
+
+// S4. a11y/font-size-is-readable (warning, readability below 15px)
+.demo-text-small-fail {
+  font-size: 11px;
+}
+
+.demo-text-small-pass {
+  font-size: 1rem;
+}
+
+// S5. a11y/no-text-align-justify (warning, uneven spacing harms readability)
+.demo-justify-fail {
+  text-align: justify;
+}
+
+.demo-justify-pass {
+  text-align: left;
+}
+
+// S6. Suppressing a justified violation - always give a reason after "--"
+.demo-suppressed-wrapper:focus-within {
+  outline: 3px solid var(--color-focus);
+}
+
+/* stylelint-disable-next-line a11y/no-outline-none -- focus ring drawn by parent :focus-within */
+.demo-suppressed:focus {
+  outline: none;
+}

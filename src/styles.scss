@@ -1,0 +1,60 @@
+/* You can add global styles to this file, and also import other style files */
+
+@mixin light-theme {
+  color-scheme: light;
+  --color-bg: #ffffff;
+  --color-text: #0b0c0c;
+  --color-border: #b1b4b6;
+  --color-fail: #d4351c;
+  --color-pass: #00703c;
+  --color-focus: #ffdd00;
+  --color-accent-bg: #1d70b8;
+  --color-accent-text: #ffffff;
+}
+
+@mixin dark-theme {
+  color-scheme: dark;
+  --color-bg: #121212;
+  --color-text: #f3f2f1;
+  --color-border: #6f777b;
+  --color-fail: #ff7b6b;
+  --color-pass: #5fd497;
+  --color-focus: #ffdd00;
+  --color-accent-bg: #5694ca;
+  --color-accent-text: #0b0c0c;
+}
+
+:root {
+  @include light-theme;
+}
+
+// Follow the OS preference unless the user has explicitly chosen light.
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include dark-theme;
+  }
+}
+
+:root[data-theme='dark'] {
+  @include dark-theme;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+}
+
+.theme-toggle {
+  padding: 8px 12px;
+  font-size: 1rem;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  border: 2px solid var(--color-border);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.theme-toggle:focus-visible {
+  outline: 3px solid var(--color-focus);
+  outline-offset: 2px;
+}
